@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Phishing URL Scanner</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding: 40px;
+            background: #eef2f7;
+        }
+
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        input {
+            width: 90%;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 15px 30px;
+            margin: 15px;
+            background: #2864dc;
+            color: white;
+            border: 0;
+            border-radius: 10px;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>AI Phishing URL Scanner</h1>
+
+    <p>Enter a website URL to check for suspicious signs.</p>
+
+    <input id="url" placeholder="https://example.com">
+
+    <button onclick="scan()">Scan URL</button>
+
+    <p id="result"></p>
+
+</div>
+
+<script>
+
+function scan() {
+
+    let url = document.getElementById("url").value.toLowerCase();
+    let result = document.getElementById("result");
+
+    if (!url) {
+        result.innerHTML = "Please enter a URL.";
+        return;
+    }
+
+    let suspiciousWords = [
+        "login",
+        "verify",
+        "account",
+        "password",
+        "secure",
+        "free",
+        "claim",
+        "bank"
+    ];
+
+    let score = 0;
+
+    if (!url.startsWith("https://")) {
+        score += 30;
+    }
+
+    for (let word of suspiciousWords) {
+        if (url.includes(word)) {
+            score += 10;
+        }
+    }
+
+    if (url.includes("@")) {
+        score += 20;
+    }
+
+    if (url.length > 75) {
+        score += 20;
+    }
+
+    if (score >= 50) {
+
+        result.innerHTML = "🔴 High Risk - Suspicious URL";
+
+    } else if (score >= 20) {
+
+        result.innerHTML = "🟠 Medium Risk - Be Careful";
+
+    } else {
+
+        result.innerHTML = "🟢 Low Risk - URL looks safe";
+
+    }
+}
+
+</script>
+
+</body>
+</html>
