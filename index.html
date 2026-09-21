@@ -102,6 +102,12 @@ function scanURL() {
         score += 20;
     }
 
-    if (score >= 50) {
-        result.innerHTML =
-            "🔴
+    iif (score >= 50) {
+    result.innerHTML = "🔴 High Risk - Suspicious URL";
+} else if (score >= 20) {
+    result.innerHTML = "🟠 Medium Risk - Be Careful";
+} else {
+    result.innerHTML = "🟢 Low Risk - URL looks safe";
+    }
+        
+        
